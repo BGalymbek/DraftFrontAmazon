@@ -9,6 +9,9 @@ RUN npm run build
 #Step 2 : Server with Nginx
 FROM nginx:1.23-alpine
 WORKDIR /usr/share/nginx/html
+# Установка максимального размера загружаемого файла в Nginx
+RUN echo "client_max_body_size 10M;" > /etc/nginx/conf.d/upload.conf
+
 RUN rm -rf *
 COPY --from=build /app/build .
 EXPOSE 80
